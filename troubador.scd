@@ -8,8 +8,13 @@ s.boot;
 // load the guitar channel into buffer
 ~buffer_gtr = Buffer.readChannel(s, '/Users/davidtrussler/MusicProduction/Troubador/src/How-can-we-tell.aiff', 0, -1, [1]);
 
-// Play both channels of the sound source
-{PlayBuf.ar(1, [~buffer_voc, ~buffer_gtr], 1)}.play;
+// Play both simultaneously in different pan positions
+(
+{
+	Pan2.ar(PlayBuf.ar(1, ~buffer_voc, 1), 1) +
+	Pan2.ar(PlayBuf.ar(1, ~buffer_gtr, 1), -1);
+}.play;
+)
 
 // Free the memory
 ~buffer.free;
