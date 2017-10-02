@@ -3,10 +3,10 @@
 s.boot;
 
 // load the vocal channel into buffer
-~buffer_voc = Buffer.readChannel(s, '/Users/davidtrussler/Documents/Music/Troubador-no-more/src/How-can-we-tell.aiff', 0, -1, [0]);
+~buffer_voc = Buffer.readChannel(s, '/Users/davidtrussler/MusicProduction/Troubador/src/How-can-we-tell.aiff', 0, -1, [0]);
 
 // load the guitar channel into buffer
-~buffer_gtr = Buffer.readChannel(s, '/Users/davidtrussler/Documents/Music/Troubador-no-more/src/How-can-we-tell.aiff', 0, -1, [1]);
+~buffer_gtr = Buffer.readChannel(s, '/Users/davidtrussler/MusicProduction/Troubador/src/How-can-we-tell.aiff', 0, -1, [1]);
 
 // Play both channels of the sound source
 {PlayBuf.ar(1, [~buffer_voc, ~buffer_gtr], 1)}.play;
