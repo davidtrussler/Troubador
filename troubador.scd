@@ -1,30 +1,46 @@
 // Boots the server
 s.boot;
 
-// Make a buffer object for each channel and allocate memory to it
+a = '/Users/davidtrussler/MusicProduction/Troubador/src/How-can-we-tell.aiff';
+
+// Read chunk:gtr_chord file into Buffer memory
 (
-var audio = '/Users/davidtrussler/MusicProduction/Troubador/src/How-can-we-tell.aiff';
+var startFrame = 474275;
+var length = 274318;
 
-// load the vocal channel into buffer
-var buffer_v = Buffer.readChannel(s, audio, 0, -1, [0]);
-
-// load the guitar channel into buffer
-var buffer_g = Buffer.readChannel(s, audio, 0, -1, [1]);
-
-audio.postln;
-buffer_v.postln;
-buffer_g.postln;
-
-// Play both simultaneously in different pan positions
-{
-	Pan2.ar(PlayBuf.ar(1, buffer_v, 1), 1) +
-	Pan2.ar(PlayBuf.ar(1, buffer_g, 1), -1);
-}.play;
-
-// Free the memory
-// buffer_v.free;
-// buffer_g.free;
+b = Buffer.readChannel(
+	s, // server
+	a, // path
+	startFrame, // start frame
+	length, // number of frames
+	1 // channels
 )
+)
+
+b.plot;
+b.free;
+
+// Play file in buffer with PlayBuf UGen
+// Set synth to free itself when action is done
+(
+x = SynthDef(
+	'tutorial-PlayBuff', // name
+	{ // ugenGraphFunc
+		arg out = 0,
+		bufnum;
+		Out.ar(
+			out,
+			PlayBuf.ar(
+				1, // numChannels
+				bufnum, // bufnum
+				loop: 1
+			)
+		);
+	}
+).play(s, [\out, 0, \bufnum, b]);
+)
+
+x.free;
 
 // Quit the server
 s.quit;
