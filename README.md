@@ -8,5 +8,4 @@ This is a piece designed around a deconstruction of an early guitar/vocal effort
 
 ## Isolate-chunks
 
-- Allocates buffers to hold audio chunks
 - reads sepcific chunks of audio into buffers

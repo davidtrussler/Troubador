@@ -1,28 +1,35 @@
 // Boots the server
 s.boot;
+s.reboot;
 
 a = '/Users/davidtrussler/MusicProduction/Troubador/src/How-can-we-tell.aiff';
 
 // Load a chunk into a buffer
 (
-f = {arg channel, startFrame, length;
+f = {arg channels, startFrame, endFrame;
 	Buffer.readChannel(
 		s, // server
 		a, // path
 		startFrame, // start frame
-		length, // number of frames
-		channel // channels
+		endFrame - startFrame, // number of frames
+		channels // channels
 	)
 };
 )
 
+// Load whole file into buffer
+// b = f.value(channels: [0, 1], startFrame: 0, length: -1);
+
 // Load first chunk into buffer (long guitar chord)
-b = f.value(channel: 1, startFrame: 474275, length: 274318);
+b = f.value(channels: [1], startFrame: 474275, endFrame: 748593);
+
+// Load second chunk into buffer (guitar twiddle)
+b = f.value(channels: [1], startFrame: 1696245, endFrame: 1808704);
 
 b.plot;
 b.free;
 
-// Play file in buffer with PlayBuf UGen
+// Play file in buffer with PlayBuf UGen on loop
 (
 x = SynthDef(
 	'tutorial-PlayBuff', // name
