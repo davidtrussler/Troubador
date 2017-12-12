@@ -27,6 +27,9 @@ b = f.value(channels: [1], startFrame: 474275, endFrame: 748593);
 // Load second chunk into buffer (guitar twiddle)
 b = f.value(channels: [1], startFrame: 1696245, endFrame: 1808704);
 
+// Load third chunk into buffer (guitar strum)
+b = f.value(channels: [1], startFrame: 3202966, endFrame: 3328126);
+
 b.plot;
 b.free;
 
