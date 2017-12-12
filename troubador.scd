@@ -18,7 +18,8 @@ f = {arg channels, startFrame, endFrame;
 )
 
 // Load whole file into buffer
-// b = f.value(channels: [0, 1], startFrame: 0, length: -1);
+// simplifies selection process
+b = Buffer.readChannel(s, a, 0, -1);
 
 // Load first chunk into buffer (long guitar chord)
 b = f.value(channels: [1], startFrame: 474275, endFrame: 748593);
